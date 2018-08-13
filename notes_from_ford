@@ -1,0 +1,40 @@
+Here are the notes from Ford with more details:
+42 "app store" collaboration, discussion points.
+================================================
+What is an app store:
+---------------------
+A set of management tools to be used for the deployment, authorisation, deletion etc for in car apps.
+What is an app:
+---------------
+Composed of at least two segments:
+ - Passive part: Metadata describing payload (permissions, icon, description, dev details, segment descriptions...)
+ - Car Payload: Active part in car: Python 3 for test purposes; no assumptions should be made about content of payload, metadata should describe every aspect.
+Additional segments of app present as needed:
+ - Active part on BID: No real active part for this exercise, simply use browser to show HTML5 served from the car or cloud or both.
+ - Active part in cloud: python? java?
+Management tools:
+-----------------
+Cloud based back end:
+ - Push car segment to app-engine in car (No BID involvment?)
+Web based front end(s) for 'app store':
+ - Collect / Store developer creds to cloud 
+ - Collect / Store customer creds to cloud 
+ - Store / delete / update apps to cloud repo
+ - Download / Deploy / delete whole app
+ - Delete / Deploy car segment
+Project delivery:
+Demonstration?
+Project completion when:
+Minimally:
+ - Developer can upload an app.
+ - Customer can see app in store and download it to device.
+ - Administrator can manage customer and developer accounts.
+Extra credit for:
+ - Full management of in car apps.
+ - Full administration of client records.
+ - Full administration of developer records.
+ - User / Developer / Adminstrator documentation.
+ - User experience.
+ - Proper recognition and documentation of system limitations.
+All code presented in style appropriate for the language, brief documentation (user manual) for interactions related to app deployment, authorisation, deletion etc.
+No obvious security issues; Everything signed, every information exchange encrypted, all users of any part of system authenticated etc. etc.
