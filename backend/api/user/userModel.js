@@ -6,6 +6,13 @@ var UserSchema = new Schema({
       type: String,
       required: 'A name is required.'
     },
+    password: {
+      type: String,
+      required: 'A password is required.'
+    },
+    token: {
+      type: String
+    },
     Created_at: {
       type: Date,
       default: Date.now

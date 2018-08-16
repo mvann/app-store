@@ -1,8 +1,10 @@
 const api = require('express').Router();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const User = require('./users/model');
-const userRouter = require('./users/routes');
+// const authRouter = require('./auth/auth');
+require('./user/userModel');
+// require('./auth/authModel');
+const userRouter = require('./user/userRoutes');
 const db = require('./db')
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -15,7 +17,7 @@ api.get('/', (req, res) => {
 });
 
 api.use(bodyParser.json());
-
+// api.use('/auth', authRouter);
 api.use('/users', userRouter);
 
 module.exports = api;
