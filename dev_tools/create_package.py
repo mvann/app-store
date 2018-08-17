@@ -3,6 +3,12 @@ import sys
 import tarfile
 import deb_pkg_tools.package
 import deb_pkg_tools.control
+from shutil import copyfile
+
+# export DPT_ALLOW_FAKEROOT_OR_SUDO=false
+# export DPT_CHOWN_FILES=false
+# export DPT_RESET_SETGID=false
+# export DPT_SUDO=false
 
 def make_tarfile(output_filename, source_dir):
     with tarfile.open(output_filename, "w:gz") as tar:
@@ -28,7 +34,7 @@ default_control_fields = {'Architecture': 'all',\
 	'Package': 'hello-sh',\
 	'Version': '1.0'}
 deb_pkg_tools.control.create_control_file(control_file_name, default_control_fields)
-print(deb_pkg_tools.package.determine_package_archive('debian'))
-print(deb_pkg_tools.package.build_package(path, repository=None, check_package=True, copy_files=True))
-
-os.system("rm -rf " + path)
+package_name = deb_pkg_tools.package.determine_package_archive('debian')
+deb_path = deb_pkg_tools.package.build_package(path, repository=None, check_package=False, copy_files=True)
+copyfile(deb_path, package_name)
+# os.system("rm -rf " + path)
