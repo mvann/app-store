@@ -50,3 +50,8 @@ module.exports.userLogin = function(req, res) {
     }
   }).catch(err => console.log(err));
 };
+
+module.exports.handleUpload = function(req, res) {
+  console.log("handlingUpload");
+  console.log(req.body);
+}
