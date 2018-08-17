@@ -1,0 +1,1 @@
+docker run -e FLASK_APP=/app/hello.py -p 5000:5000 -v "$(pwd)":/app ford:client flask run --host=0.0.0.0
