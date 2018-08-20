@@ -3,8 +3,7 @@
 ## **Backend**
 
 To get backend up and running:
-> cd into backend directory
-
+> cd into backend directory  
 > install packages:
 
 `yarn install`
@@ -16,8 +15,11 @@ To get backend up and running:
 ## **App store frontend**
 
 To get frontend up and running:
-> cd into webpage directory
+> cd into webpage directory  
 > install packages:
+
 `yarn install`
+
 > start development server
+
 `yarn start`
