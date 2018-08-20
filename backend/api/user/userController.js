@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('Users');
 
 function createFakeToken() {
-  return Math.floor(Math.random() * 100000);
+  return Math.floor(Math.random() * 1000000);
 };
 
 module.exports.getUser = function(req, res) {
@@ -50,8 +50,3 @@ module.exports.userLogin = function(req, res) {
     }
   }).catch(err => console.log(err));
 };
-
-module.exports.handleUpload = function(req, res) {
-  console.log("handlingUpload");
-  console.log(req.body);
-}

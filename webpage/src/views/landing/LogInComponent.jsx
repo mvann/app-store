@@ -37,6 +37,7 @@ class LogInComponent extends Component {
       if (resp.status === 200)
       {
         console.log("Successful login...");
+        window.localStorage.setItem('name', this.state.username);
         window.localStorage.setItem('token', resp.data.token);
         this.setState({loggedIn: true});
       }

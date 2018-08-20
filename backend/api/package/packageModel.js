@@ -1,21 +1,18 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-var UserSchema = new Schema({
+var PackageSchema = new Schema({
     name: {
       type: String,
       required: 'A name is required.'
     },
-    password: {
+    fileName: {
       type: String,
-      required: 'A password is required.'
+      required: 'A fileName is required.'
     },
-    token: {
-      type: String
-    },
-    isDev: {
-      type: Boolean,
-      default: false
+    fileBuffer: {
+      type: Buffer,
+      require: 'A fileBuffer is required.'
     },
     Created_at: {
       type: Date,
@@ -23,4 +20,4 @@ var UserSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Users', UserSchema)
+module.exports = mongoose.model('Packages', PackageSchema);

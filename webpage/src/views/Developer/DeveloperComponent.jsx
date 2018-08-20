@@ -2,22 +2,43 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class DeveloperComponent extends Component {
-  onUpload(e) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      packageName: 'default',
+      file: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
+  handleFileChange(e) {
+    this.setState({file: e.target.files[0]});
+  }
+
+  handleSubmit(e) {
     let data = new FormData();
-    // data.append('name', window.localStorage.getItem('username'));
-    // data.append('token', window.localStorage.getItem('token'));
-    data.append('file', e.target.files[0]);
-    axios({
-      method: 'post',
-      url: 'api/users/upload',
-      body: data
-    }).then(res => console.log(res));
+    data.append('name', window.localStorage.getItem('username'));
+    data.append('token', window.localStorage.getItem('token'));
+    data.append('packageName', this.state.packageName);
+    data.append('file', this.state.file);
+    axios.post('api/packages/upload', data)
+    .then(res => console.log(res));
   }
 
   render() {
     return (
       <div>
-        <input type="file" onChange={this.onUpload}/>
+        Package Name:
+        <input name='packageName' value={this.state.packageName} onChange={this.handleChange}/>
+        <br/>File:
+        <input type='file' onChange={this.handleFileChange}/>
+        <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }
