@@ -4,9 +4,13 @@
 
 To get backend up and running:
 > cd into backend directory
+
 > install packages:
+
 `yarn install`
+
 > start server
+
 `node index.js`
 
 ## **App store frontend**
