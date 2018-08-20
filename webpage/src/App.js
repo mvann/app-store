@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import LandingComponent from './views/landing/LandingComponent';
 import DashboardComponent from './views/dashboard/DashboardComponent';
 import DeveloperComponent from './views/Developer/DeveloperComponent';
+import AdminComponent from './views/Admin/AdminComponent';
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,6 +20,7 @@ class App extends Component {
             <Route exact path='/' component={LandingComponent} />
             <Route path='/dashboard' component={DashboardComponent} />
             <Route path='/dev' component={DeveloperComponent} />
+            <Route path='/admin' component={AdminComponent} />
           </Switch>
         </div>
       </BrowserRouter>

@@ -14,7 +14,8 @@ module.exports.handleUpload = function(req, res, next) {
   let new_package = new Package({
     name: req.body.packageName,
     fileName: req.file.originalname,
-    fileBuffer: req.file.buffer
+    fileBuffer: req.file.buffer,
+    mimetype: req.file.mimetype
   });
   new_package.save((err, package) => {
     if (err)

@@ -14,6 +14,13 @@ var PackageSchema = new Schema({
       type: Buffer,
       require: 'A fileBuffer is required.'
     },
+    status: {
+      type: String,
+      default: 'pending'
+    },
+    mimetype: {
+      type: String
+    },
     Created_at: {
       type: Date,
       default: Date.now
