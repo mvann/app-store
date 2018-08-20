@@ -1,7 +1,5 @@
 # app-store
 
----
-
 ## **Backend**
 
 To get backend up and running:
@@ -10,8 +8,6 @@ To get backend up and running:
 `yarn install`
 > start server
 `node index.js`
-
----
 
 ## **App store frontend**
 
