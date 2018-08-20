@@ -4,7 +4,7 @@ const Package = mongoose.model('Packages');
 module.exports.getAllPackages = function(req, res) {
   Package.find({}, function(err, Packages) {
     res.json(Packages)
-  })
+  });
 };
 
 module.exports.handleUpload = function(req, res, next) {

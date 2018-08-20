@@ -12,7 +12,7 @@ class PendingComponent extends Component {
     var a = window.document.createElement('a');
     console.log(this.aPackage.fileBuffer.data);
     a.href = window.URL.createObjectURL(new File(
-        this.aPackage.fileBuffer.data,
+        [new Uint8Array(this.aPackage.fileBuffer.data)],
         this.aPackage.fileName));
     a.download = this.aPackage.fileName;
 
@@ -24,9 +24,12 @@ class PendingComponent extends Component {
   render() {
     console.log(this.props.aPackage);
     return (
-      <div>
-        Pending: {this.aPackage.mimetype}
+      <div style={{border: "1px solid black"}}>
+        <h3>Name: {this.aPackage.name}</h3>
+        <p>Filename: {this.aPackage.fileName}</p>
+        <p>Status: {this.aPackage.status}</p>
         <button onClick={this.download}>Download</button>
+        <p>{this.aPackage.status === 'pending' ? 'yo' : 'sup'}</p>
       </div>
     );
   }
