@@ -10,6 +10,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get install -y netcat net-tools
+RUN echo "deb http://repo:8000 /" > /etc/apt/sources.list
 
 EXPOSE 5000
 #ENTRYPOINT ["venv/bin/activate"]
