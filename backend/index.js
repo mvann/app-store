@@ -7,6 +7,6 @@ const port = 5001;
 
 app.use('/api', apiRouter);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Listening on port ${port}!`));
 
-repoConnection.uploadFileToRepo(__dirname + '/test.deb');
+// repoConnection.uploadFileToRepo(__dirname + '/test.deb');

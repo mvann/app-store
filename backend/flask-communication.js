@@ -1,9 +1,9 @@
 const request = require('request');
 const fs = require('fs');
 
-module.exports.uploadFileToRepo = function(filePath) {
+module.exports.uploadFileToRepo = function(file) {
   var formData = {
-    file: fs.createReadStream(filePath)
+    file: fs.createReadStream(new Uint8Array(file))
   }
   request.post({
     url:'http://localhost:5000',

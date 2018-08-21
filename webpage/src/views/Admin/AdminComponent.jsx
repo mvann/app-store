@@ -8,15 +8,23 @@ class AdminComponent extends Component {
     this.state = {
       packages: []
     };
+    this.loadPackages = this.loadPackages.bind(this);
   }
 
-  componentDidMount() {
+  loadPackages() {
     axios.get('/api/packages/')
     .then(res => this.setState({packages: res.data}));
   }
 
+  componentDidMount() {
+    this.loadPackages();
+  }
+
   listPackages() {
-    let packages = this.state.packages.map(aPackage => <PendingComponent key={aPackage._id} aPackage={aPackage} />)
+    console.log('listing');
+    let packages = this.state.packages.map(aPackage =>
+      <PendingComponent key={aPackage._id} aPackage={aPackage} reload={this.loadPackages}/>
+    );
 
     return (
       <div>

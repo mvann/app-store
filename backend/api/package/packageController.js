@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Package = mongoose.model('Packages');
+const repo = require('../../flask-communication');
 
 module.exports.getAllPackages = function(req, res) {
   Package.find({}, function(err, Packages) {
@@ -22,4 +23,28 @@ module.exports.handleUpload = function(req, res, next) {
       res.send(err);
     res.json(package);
   });
+};
+
+module.exports.approve = function(req, res) {
+  Package.findByIdAndUpdate(req.body.id, {status: 'approved'}, (err, pack) => {
+    if (pack) {
+      repo.uploadFileToRepo(pack.fileBuffer);
+    } else
+      res.send(err);
+  });
+  res.send('suh');
+};
+
+module.exports.reject = function(req, res) {
+  Package.findByIdAndUpdate(req.body.id, {status: 'reject'}, (err, pack) => {
+    console.log(pack);
+  });
+  res.send('rej');
+};
+
+module.exports.reset = function(req, res) {
+  Package.findByIdAndUpdate(req.body.id, {status: 'pending'}, (err, pack) => {
+    console.log(pack);
+  });
+  res.send('pending');
 };

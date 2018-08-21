@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class PendingComponent extends Component {
   constructor(props) {
     super(props);
 
+
     this.aPackage = this.props.aPackage;
     this.download = this.download.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+    console.log(this.aPackage.fileName);
+  }
+
+  updateStatus(e) {
+    axios({
+      method: 'post',
+      url: `api/packages/${e.target.name}`,
+      headers: { 'content-type': 'application/json' },
+      data: {
+        id: this.aPackage._id
+      }
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log('yo');
+        this.props.reload();
+      }
+    });
   }
 
   download() {
@@ -22,14 +42,22 @@ class PendingComponent extends Component {
   }
 
   render() {
-    console.log(this.props.aPackage);
+    this.aPackage = this.props.aPackage;
+    console.log(this.aPackage);
     return (
       <div style={{border: "1px solid black"}}>
         <h3>Name: {this.aPackage.name}</h3>
         <p>Filename: {this.aPackage.fileName}</p>
         <p>Status: {this.aPackage.status}</p>
         <button onClick={this.download}>Download</button>
-        <p>{this.aPackage.status === 'pending' ? 'yo' : 'sup'}</p>
+        {this.aPackage.status === 'pending' ?
+          <p>
+            <button name='approve' onClick={this.updateStatus}>approve</button>
+            <button name='reject' onClick={this.updateStatus}>reject</button>
+          </p>
+          :
+          <button name='reset' onClick={this.updateStatus}>reset</button>
+        }
       </div>
     );
   }
