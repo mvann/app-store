@@ -1,1 +1,1 @@
-docker run -it -p 8000:8000 -p 5000:5000 -v $(pwd)/repo:/repo repo
+docker run -it -p 8000:8000 -p 5000:5000 -v $(pwd)/repo:/repo ford:repo

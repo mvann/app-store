@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y python3 python3-pip locales 
-RUN pip3 install Flask
+RUN apt-get update && apt-get install -y python3 python3-pip locales
+RUN pip3 install Flask deb-pkg-tools
 
 RUN mkdir repo
 WORKDIR repo

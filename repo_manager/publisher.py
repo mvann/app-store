@@ -1,8 +1,9 @@
 import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
+import deb_pkg_tools.repo
 
-UPLOAD_FOLDER = '/repo/debian'
+UPLOAD_FOLDER = '/repo'
 ALLOWED_EXTENSIONS = set(['deb'])
 
 app = Flask(__name__)
@@ -28,7 +29,10 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            deb_pkg_tools.repo.scan_packages(UPLOAD_FOLDER, packages_file=(UPLOAD_FOLDER + '/Packages'), cache=None)
             return redirect(url_for('upload_file', filename=filename))
+    if request.method == 'GET':
+        print('get method')
     return '''
     <!doctype html>
     <title>Upload new File</title>
