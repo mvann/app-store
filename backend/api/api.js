@@ -5,7 +5,9 @@ require('./user/userModel');
 require('./package/packageModel');
 const userRouter = require('./user/userRoutes');
 const packageRouter = require('./package/packageRoutes');
-const db = require('./db')
+const db = require('./db');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(err) {

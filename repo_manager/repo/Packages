@@ -1,28 +1,28 @@
-MD5sum: f84100f39211c855fed985bf23680e69
-SHA256: b73d15bbe3bf068144c2f845c322eafba62f8532df8cb0e532afc5f6f0277a6c
-Version: 1.0
-Section: misc
-Maintainer: iprokofy-mvann
-Size: 752
-Filename: hello-sh_1.0_all.deb
-Priority: optional
-Architecture: all
-Package: hello-sh
 SHA1: 05d98be436b9641a988963ddda19061445271947
 Installed-Size: 8
+Version: 1.0
 Description: hello
-
-MD5sum: e672f8991ea0191ba4d13f2f1e6c49c4
-SHA256: 46d1db05a845f8dc258cdf37dff0dc97c12cfa6d569afac57a33d39f0e9e775c
-Version: 1.1
+SHA256: b73d15bbe3bf068144c2f845c322eafba62f8532df8cb0e532afc5f6f0277a6c
+Architecture: all
+Size: 752
+MD5sum: f84100f39211c855fed985bf23680e69
+Priority: optional
 Section: misc
 Maintainer: iprokofy-mvann
-Size: 764
-Filename: hello-sh_1.1_all.deb
-Priority: optional
-Architecture: all
+Filename: hello-sh_1.0_all.deb
 Package: hello-sh
+
 SHA1: 122b3c35ec1b44c55f1ebb8a2af51a6e4a4a8c6d
 Installed-Size: 8
+Version: 1.1
 Description: hello
+SHA256: 46d1db05a845f8dc258cdf37dff0dc97c12cfa6d569afac57a33d39f0e9e775c
+Architecture: all
+Size: 764
+MD5sum: e672f8991ea0191ba4d13f2f1e6c49c4
+Package: hello-sh
+Section: misc
+Maintainer: iprokofy-mvann
+Filename: hello-sh_1.1_all.deb
+Priority: optional
 

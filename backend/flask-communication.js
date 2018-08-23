@@ -1,9 +1,10 @@
 const request = require('request');
 const fs = require('fs');
+const streamifier = require('streamifier');
 
 module.exports.uploadFileToRepo = function(file) {
   var formData = {
-    file: fs.createReadStream(new Uint8Array(file))
+    file: streamifier.createReadStream(new Uint8Array(file))
   }
   request.post({
     url:'http://localhost:5000',
