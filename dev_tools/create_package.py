@@ -32,7 +32,7 @@ default_control_fields = {'Architecture': 'all',\
 	'Description': 'hello',\
 	'Maintainer': 'iprokofy-mvann',\
 	'Package': 'hello-sh',\
-	'Version': '1.1'}
+	'Version': '1.2'}
 deb_pkg_tools.control.create_control_file(control_file_name, default_control_fields)
 
 os.system("cp -r " + src + "/* " + path + '.')
