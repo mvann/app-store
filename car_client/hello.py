@@ -11,8 +11,16 @@ is_cache_updated = False
 def pkg_trusted(pkg):
 	return len(pkg.candidate.origins) > 0 and pkg.candidate.origins[0].trusted
 
+def pkg_control_field(pkg, name):
+	if name in pkg.candidate.record:
+		return pkg.candidate.record[name]
+	return ''
+
 def pkg_maintainer(pkg):
-	return pkg.candidate.record['Maintainer']
+	return pkg_control_field(pkg, 'Maintainer')
+
+def pkg_icon(pkg):
+	return pkg_control_field(pkg, 'Icon')
 
 def parse_pkg(pkg):
 	return {'name': pkg.shortname,
@@ -20,6 +28,7 @@ def parse_pkg(pkg):
 			'description': pkg.candidate.description,
 			'id': pkg.id,
 			'version': pkg.candidate.version,
+			'icon': pkg_icon(pkg),
 			'maintainer': pkg_maintainer(pkg),
 			'trusted': pkg_trusted(pkg)}
 
