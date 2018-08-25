@@ -1,0 +1,1 @@
+docker container stop $(docker ps -f ancestor=ford:car -q)

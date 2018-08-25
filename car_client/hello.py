@@ -6,7 +6,6 @@ import json
 
 app = Flask(__name__)
 
-cache = apt.Cache()
 is_cache_updated = False
 
 def pkg_trusted(pkg):
@@ -28,6 +27,8 @@ def update_impl():
 	response = {'status': True}
 
 	try:
+		cache = apt.Cache()
+		# cache.clear()
 		cache.update()
 		cache.open(None)
 		cache.commit()
@@ -50,6 +51,7 @@ def list_packages():
 		if not update_res['status']:
 			return update_res
 	
+	cache = apt.Cache()
 	response = {'status': True, 'available': [], 'upgradable': [], 'installed': []}
 	for pkg in cache:
 		if pkg_maintainer(pkg) != 'iprokofy-mvann':
@@ -71,6 +73,7 @@ def install(pkg_id):
 	response = {'status': True}
 
 	try:
+		cache = apt.Cache()
 		pkg = cache[pkg_id]
 		if not pkg_trusted(pkg):
 			raise Exception('origin is not trusted')
