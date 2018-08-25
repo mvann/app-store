@@ -29,16 +29,27 @@ class PendingComponent extends Component {
   }
 
   download() {
-    var a = window.document.createElement('a');
-    console.log(this.aPackage.fileBuffer.data);
-    a.href = window.URL.createObjectURL(new File(
-        [new Uint8Array(this.aPackage.fileBuffer.data)],
+    console.log(this.aPackage);
+    axios({
+      method: 'get',
+      url: `api/packages/${this.aPackage.storedFileName}`,
+      // data: {
+      //   storedFileName: this.aPackage.storedFileName
+      // }
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log(res);
+        var a = window.document.createElement('a');
+        a.href = window.URL.createObjectURL(new File(
+        [new Uint8Array(res.data)],
         this.aPackage.fileName));
-    a.download = this.aPackage.fileName;
+        a.download = this.aPackage.fileName;
 
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    });
   }
 
   render() {
