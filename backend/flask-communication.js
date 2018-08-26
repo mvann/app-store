@@ -1,17 +1,20 @@
 const request = require('request');
 const fs = require('fs');
-const streamifier = require('streamifier');
 
-module.exports.uploadFileToRepo = function(file) {
-  var formData = {
-    file: streamifier.createReadStream(new Uint8Array(file))
-  }
+module.exports.uploadFileToRepo = function(readstream) {
+  readstream.path='./' + readstream.name;
+  let formData = {
+    file: readstream
+  };
+  let url = 'http://localhost:5000';
+
   request.post({
-    url:'http://localhost:5000',
-    formData: formData,
+    url: url,
+    formData: formData
   }, (err, response, body) => {
-    console.log("Error:", err);
-    console.log("Response:", response);
-    console.log("Body:", body);
+    if (err)
+      res.status(500).json(err);
+    else
+      res.send(body);
   });
 }

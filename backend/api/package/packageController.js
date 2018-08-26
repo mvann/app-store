@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const conn = mongoose.connection;
 const Package = mongoose.model('Packages');
 const repo = require('../../flask-communication');
-const conn = mongoose.connection;
 const Grid = require('gridfs-stream');
 
 let gfs;
@@ -10,7 +10,6 @@ conn.once('open', (err) => {
   console.log('in package controller...');
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
-  // removeAllPackages();
 });
 
 function removeAllPackages() {
@@ -24,24 +23,6 @@ module.exports.getAllPackages = function(req, res) {
   Package.find({}, function(err, Packages) {
     res.json(Packages);
   });
-  // gfs.files.find().toArray((err, files) => {
-  //   // Check if files
-  //   if (!files || files.length === 0) {
-  //     res.render('index', { files: false });
-  //   } else {
-  //     // files.map(file => {
-  //     //   if (
-  //     //     file.contentType === 'image/jpeg' ||
-  //     //     file.contentType === 'image/png'
-  //     //   ) {
-  //     //     file.isImage = true;
-  //     //   } else {
-  //     //     file.isImage = false;
-  //     //   }
-  //     // });
-  //     res.json({ files: files });
-  //   }
-  // });
 };
 
 module.exports.getFile = function(req, res) {
@@ -53,15 +34,12 @@ module.exports.getFile = function(req, res) {
     } else {
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
-      // res.json(file);
     }
   });
 }
 
 module.exports.handleUpload = function(req, res, next) {
   console.log("handlingUpload");
-  console.log(req.body);
-  console.log(req.file);
   let new_package = new Package({
     name: req.body.packageName,
     fileName: req.file.originalname,
@@ -78,23 +56,25 @@ module.exports.handleUpload = function(req, res, next) {
 module.exports.approve = function(req, res) {
   Package.findByIdAndUpdate(req.body.id, {status: 'approved'}, (err, pack) => {
     if (pack) {
-      repo.uploadFileToRepo(pack.fileBuffer);
+      let readstream = gfs.createReadStream({
+        filename: pack.storedFileName
+      });
+      repo.uploadFileToRepo(readstream, res);
     } else
       res.send(err);
   });
-  res.send('suh');
 };
 
 module.exports.reject = function(req, res) {
   Package.findByIdAndUpdate(req.body.id, {status: 'reject'}, (err, pack) => {
-    console.log(pack);
+    console.log('Changed pack status to reject.');
   });
   res.send('rej');
 };
 
 module.exports.reset = function(req, res) {
   Package.findByIdAndUpdate(req.body.id, {status: 'pending'}, (err, pack) => {
-    console.log(pack);
+    console.log('resetting pack');
   });
   res.send('pending');
 };

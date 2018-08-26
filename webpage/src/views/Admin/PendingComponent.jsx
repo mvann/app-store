@@ -22,6 +22,7 @@ class PendingComponent extends Component {
       }
     }).then((res) => {
       if (res.status === 200) {
+        console.log('res:', res);
         console.log('yo');
         this.props.reload();
       }
@@ -54,13 +55,14 @@ class PendingComponent extends Component {
 
   render() {
     this.aPackage = this.props.aPackage;
-    console.log(this.aPackage);
+    // console.log(this.aPackage);
     return (
       <div style={{border: "1px solid black"}}>
         <h3>Name: {this.aPackage.name}</h3>
         <p>Filename: {this.aPackage.fileName}</p>
         <p>Status: {this.aPackage.status}</p>
         <button onClick={this.download}>Download</button>
+        <a href={`http://localhost:5001/api/packages/${this.aPackage.storedFileName}`} download>sup</a>
         {this.aPackage.status === 'pending' ?
           <p>
             <button name='approve' onClick={this.updateStatus}>approve</button>

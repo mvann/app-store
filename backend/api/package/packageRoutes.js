@@ -25,13 +25,11 @@ const storage = new GridFsStorage({
 })
 const upload = multer({ storage: storage });
 
-
-
 router.get('/', ctrl.getAllPackages);
-router.get('/:filename', ctrl.getFile);
 router.post('/upload', upload.single('file'), ctrl.handleUpload);
 router.post('/approve', ctrl.approve);
 router.post('/reject', ctrl.reject);
 router.post('/reset', ctrl.reset);
+router.get('/:filename', ctrl.getFile);
 
 module.exports = router;
