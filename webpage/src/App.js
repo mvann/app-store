@@ -4,6 +4,7 @@ import LandingComponent from './views/landing/LandingComponent';
 import DashboardComponent from './views/dashboard/DashboardComponent';
 import DeveloperComponent from './views/Developer/DeveloperComponent';
 import AdminComponent from './views/Admin/AdminComponent';
+import StoreComponent from './views/Store/StoreComponent';
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path='/dashboard' component={DashboardComponent} />
             <Route path='/dev' component={DeveloperComponent} />
             <Route path='/admin' component={AdminComponent} />
+            <Route path='/store' component={StoreComponent} />
           </Switch>
         </div>
       </BrowserRouter>
