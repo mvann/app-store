@@ -12,16 +12,41 @@ conn.once('open', (err) => {
   gfs.collection('uploads');
 });
 
-function removeAllPackages() {
+module.exports.removeFile = function(req, res) {
+  gfs.remove({_id: req.params.id }, (err, gridStore) => {
+    if (err)
+      console.log(err);
+    else
+      console.log('Removed:', req.params.id);
+  });
+  res.send('attempted deletion');
+}
+
+module.exports.deleteAllPackages = function() {
   Package.deleteMany({}, (err) => {
     if (err)
       console.log('delete many err:', err);
   });
+  res.send('deleted all package documents')
 };
 
 module.exports.getAllPackages = function(req, res) {
   Package.find({}, function(err, Packages) {
     res.json(Packages);
+  });
+};
+
+module.exports.getAllFiles = function(req, res) {
+  gfs.files.find().toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        err: 'No files exist'
+      });
+    }
+
+    // Files exist
+    return res.json(files);
   });
 };
 

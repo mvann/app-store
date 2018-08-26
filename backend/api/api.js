@@ -16,7 +16,7 @@ db.once('open', function(err) {
 });
 
 api.get('/', (req, res) => {
-  res.send('api yo')
+  res.send("There's nothing to get at this route.");
 });
 
 api.use(bodyParser.json());

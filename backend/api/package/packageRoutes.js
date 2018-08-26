@@ -30,6 +30,9 @@ router.post('/upload', upload.single('file'), ctrl.handleUpload);
 router.post('/approve', ctrl.approve);
 router.post('/reject', ctrl.reject);
 router.post('/reset', ctrl.reset);
+router.get('/delete/:id', ctrl.removeFile);
+router.get('/deleteAll', ctrl.deleteAllPackages);
+router.get('/allFiles', ctrl.getAllFiles);
 router.get('/:filename', ctrl.getFile);
 
 module.exports = router;

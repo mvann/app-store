@@ -5,15 +5,26 @@ function createFakeToken() {
   return Math.floor(Math.random() * 1000000);
 };
 
+module.exports.deleteAllUsers = function() {
+  User.deleteMany({}, (err) => {
+    if (err)
+      console.log('delete many users err:', err);
+  });
+};
+
 module.exports.getUser = function(req, res) {
   console.log('getting user...');
   User.findOne({ 'name': req.params.username }, function(err, User) {
+    if (err)
+      res.status(500).send(err);
     res.json(User)
   })
 };
 
 module.exports.getAllUsers = function(req, res) {
   User.find({}, function(err, Users) {
+    if (err)
+      res.status(500).send(err);
     res.json(Users)
   })
 };
@@ -29,7 +40,7 @@ module.exports.createUser = function(req, res) {
         res.json(user);
       });
     } else {
-      res.status(400);
+      res.status(500);
       res.json({err: 'Create user error.'});
     }
   });
