@@ -3,8 +3,8 @@
 This project was created for the Ford Hackathon at 42 Silicon Valley!
 
 ### Authors:
-Inessa Prokofyeva ([ulliwy on GitHub](https://github.com/ulliwy))
-Michael Vann ([mvann on GitHub](https://github.com/mvann))
+* Inessa Prokofyeva ([ulliwy on GitHub](https://github.com/ulliwy))
+* Michael Vann ([mvann on GitHub](https://github.com/mvann))
 
 ## General requirements:
 * Docker ([Install Docker](https://docs.docker.com/docker-for-mac/install/))
