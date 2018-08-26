@@ -58,12 +58,12 @@ class AppManager extends Component {
   }
 
   renderUpgradable() {
-    let installed = this.state.installed.map(app =>
+    let upgradable = this.state.upgradable.map(app =>
       <AppItem key={app.id} app={app}/>
     );
     return (
       <div>
-        {installed}
+        {upgradable}
       </div>
     );
   }

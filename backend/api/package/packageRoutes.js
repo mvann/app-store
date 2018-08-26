@@ -9,17 +9,22 @@ const storage = new GridFsStorage({
   url: require('../db').uri,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: 'uploads'
-        };
-        resolve(fileInfo);
-      });
+      // crypto.randomBytes(16, (err, buf) => {
+      //   if (err) {
+      //     return reject(err);
+      //   }
+      //   const filename = buf.toString('hex') + path.extname(file.originalname);
+      //   const fileInfo = {
+      //     filename: filename,
+      //     bucketName: 'uploads'
+      //   };
+      //   resolve(fileInfo);
+      // });
+      const fileInfo = {
+        filename: file.originalname,
+        bucketName: 'uploads'
+      };
+      resolve(fileInfo);
     });
   }
 })
@@ -33,6 +38,6 @@ router.post('/reset', ctrl.reset);
 router.get('/delete/:id', ctrl.removeFile);
 router.get('/deleteAll', ctrl.deleteAllPackages);
 router.get('/allFiles', ctrl.getAllFiles);
-router.get('/:filename', ctrl.getFile);
+router.get('/:id/:filename', ctrl.getFile);
 
 module.exports = router;

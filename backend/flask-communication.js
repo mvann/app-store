@@ -1,8 +1,8 @@
 const request = require('request');
 const fs = require('fs');
 
-module.exports.uploadFileToRepo = function(readstream) {
-  readstream.path='./' + readstream.name;
+module.exports.uploadFileToRepo = function(readstream, filename, res) {
+  readstream.path='./' + filename;
   let formData = {
     file: readstream
   };

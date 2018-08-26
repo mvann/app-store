@@ -3,6 +3,7 @@ const conn = mongoose.connection;
 const Package = mongoose.model('Packages');
 const repo = require('../../flask-communication');
 const Grid = require('gridfs-stream');
+eval(`Grid.prototype.findOne = ${Grid.prototype.findOne.toString().replace('nextObject', 'next')}`);
 
 let gfs;
 
@@ -22,7 +23,7 @@ module.exports.removeFile = function(req, res) {
   res.send('attempted deletion');
 }
 
-module.exports.deleteAllPackages = function() {
+module.exports.deleteAllPackages = function(req, res) {
   Package.deleteMany({}, (err) => {
     if (err)
       console.log('delete many err:', err);
@@ -51,8 +52,8 @@ module.exports.getAllFiles = function(req, res) {
 };
 
 module.exports.getFile = function(req, res) {
-  console.log(req.body);
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+  console.log(req.params);
+  gfs.findOne({ _id: req.params.id }, (err, file) => {
     if (!file) {
       console.log('file not found');
       res.status(404).json({ err: 'File not found.' });
@@ -69,6 +70,7 @@ module.exports.handleUpload = function(req, res, next) {
     name: req.body.packageName,
     fileName: req.file.originalname,
     storedFileName: req.file.filename,
+    fileId: req.file.id,
     mimetype: req.file.mimetype
   });
   new_package.save((err, package) => {
@@ -84,7 +86,7 @@ module.exports.approve = function(req, res) {
       let readstream = gfs.createReadStream({
         filename: pack.storedFileName
       });
-      repo.uploadFileToRepo(readstream, res);
+      repo.uploadFileToRepo(readstream, pack.fileName, res);
     } else
       res.send(err);
   });

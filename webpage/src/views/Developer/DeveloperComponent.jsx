@@ -5,7 +5,7 @@ class DeveloperComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      packageName: 'default',
+      packageName: '--',
       file: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +19,9 @@ class DeveloperComponent extends Component {
 
   handleFileChange(e) {
     console.log(e.target.files[0]);
-    this.setState({file: e.target.files[0]});
+    this.setState({
+      packageName: e.target.files[0].name.split('_')[0],
+      file: e.target.files[0]});
   }
 
   handleSubmit(e) {
@@ -35,8 +37,9 @@ class DeveloperComponent extends Component {
   render() {
     return (
       <div>
-        Package Name:
-        <input name='packageName' value={this.state.packageName} onChange={this.handleChange}/>
+        {/* Package Name: */}
+        {/* <input name='packageName' value={this.state.packageName} onChange={this.handleChange}/> */}
+        <h3>Package Name: {this.state.packageName}</h3>
         <br/>File:
         <input type='file' onChange={this.handleFileChange}/>
         <button onClick={this.handleSubmit}>Submit</button>
