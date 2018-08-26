@@ -26,8 +26,14 @@ class AdminComponent extends Component {
       <PendingComponent key={aPackage._id} aPackage={aPackage} reload={this.loadPackages}/>
     );
 
+    let divStyle = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start'
+    };
+
     return (
-      <div>
+      <div style={divStyle}>
         {packages}
       </div>
     )
@@ -36,8 +42,8 @@ class AdminComponent extends Component {
   render() {
     return (
       <div>
-        Admin
-      {this.listPackages()}
+        <h1>Admin Dashboard</h1>
+        {this.listPackages()}
       </div>
     );
   }

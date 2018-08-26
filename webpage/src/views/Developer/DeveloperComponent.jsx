@@ -8,14 +8,14 @@ class DeveloperComponent extends Component {
       packageName: '--',
       file: ''
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
-  }
+  // handleChange(e) {
+  //   this.setState({[e.target.name]: e.target.value});
+  // }
 
   handleFileChange(e) {
     console.log(e.target.files[0]);
@@ -31,14 +31,13 @@ class DeveloperComponent extends Component {
     data.append('packageName', this.state.packageName);
     data.append('file', this.state.file);
     axios.post('api/packages/upload', data)
-    .then(res => console.log(res));
+    .then(res => {
+    });
   }
 
   render() {
     return (
       <div>
-        {/* Package Name: */}
-        {/* <input name='packageName' value={this.state.packageName} onChange={this.handleChange}/> */}
         <h3>Package Name: {this.state.packageName}</h3>
         <br/>File:
         <input type='file' onChange={this.handleFileChange}/>

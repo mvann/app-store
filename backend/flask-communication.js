@@ -14,6 +14,8 @@ module.exports.uploadFileToRepo = function(readstream, filename, res) {
   }, (err, response, body) => {
     if (err)
       res.status(500).json(err);
+    if (err)
+      console.log(err);
     else
       res.send(body);
   });
