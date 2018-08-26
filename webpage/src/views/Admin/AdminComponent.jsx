@@ -8,18 +8,32 @@ class AdminComponent extends Component {
     this.state = {
       packages: []
     };
+    this.loadPackages = this.loadPackages.bind(this);
   }
 
-  componentDidMount() {
+  loadPackages() {
     axios.get('/api/packages/')
     .then(res => this.setState({packages: res.data}));
   }
 
+  componentDidMount() {
+    this.loadPackages();
+  }
+
   listPackages() {
-    let packages = this.state.packages.map(aPackage => <PendingComponent key={aPackage._id} aPackage={aPackage} />)
+    console.log('listing');
+    let packages = this.state.packages.map(aPackage =>
+      <PendingComponent key={aPackage._id} aPackage={aPackage} reload={this.loadPackages}/>
+    );
+
+    let divStyle = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start'
+    };
 
     return (
-      <div>
+      <div style={divStyle}>
         {packages}
       </div>
     )
@@ -28,8 +42,8 @@ class AdminComponent extends Component {
   render() {
     return (
       <div>
-        Admin
-      {this.listPackages()}
+        <h1>Admin Dashboard</h1>
+        {this.listPackages()}
       </div>
     );
   }

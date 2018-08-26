@@ -1,16 +1,22 @@
 const request = require('request');
 const fs = require('fs');
 
-module.exports.uploadFileToRepo = function(filePath) {
-  var formData = {
-    file: fs.createReadStream(filePath)
-  }
+module.exports.uploadFileToRepo = function(readstream, filename, res) {
+  readstream.path='./' + filename;
+  let formData = {
+    file: readstream
+  };
+  let url = 'http://localhost:5000';
+
   request.post({
-    url:'http://localhost:5000',
-    formData: formData,
+    url: url,
+    formData: formData
   }, (err, response, body) => {
-    console.log("Error:", err);
-    console.log("Response:", response);
-    console.log("Body:", body);
+    if (err)
+      res.status(500).json(err);
+    if (err)
+      console.log(err);
+    else
+      res.send(body);
   });
 }

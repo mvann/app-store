@@ -10,10 +10,18 @@ var PackageSchema = new Schema({
       type: String,
       required: 'A fileName is required.'
     },
-    fileBuffer: {
-      type: Buffer,
-      require: 'A fileBuffer is required.'
+    storedFileName: {
+      type: String,
+      required: 'A storedFileName is required.'
     },
+    fileId: {
+      type: String,
+      require: 'A fileId is required.'
+    },
+    // fileBuffer: {
+    //   type: Buffer,
+    //   require: 'A fileBuffer is required.'
+    // },
     status: {
       type: String,
       default: 'pending'
