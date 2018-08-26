@@ -1,11 +1,18 @@
 # AUTONET - application delivery system for developer-car interactions
+
+This project was created for the Ford Hackathon at 42 Silicon Valley!
+
+### Authors:
+Inessa Prokofyeva ([ulliwy on GitHub](https://github.com/ulliwy))
+Michael Vann ([mvann on GitHub](https://github.com/mvann))
+
 ## General requirements:
 * Docker ([Install Docker](https://docs.docker.com/docker-for-mac/install/))
 * Python3, deb_pkg_tools ([Install deb_pkg_tools](https://deb-pkg-tools.readthedocs.io/en/latest/#installation)) to run *create_package* tool, or use example .deb packages)
 * nodejs ([get node](https://nodejs.org/en/download/))
 * yarn ([get yarn](https://yarnpkg.com/en/docs/install))
 
-## Installation:
+## Setup and Installation:
 ### Package creation:
 1. Go to *dev_tools/*
 2. Create a folder with application (store sources using /usr/bin/ way) or use example applications: *hello-sh*, *another-sh*
@@ -38,19 +45,19 @@ export DPT_SUDO=false
 5. (Run container in interactive mode using: `./run.sh`)
 6. Use `./stop.sh` to stop container
 
-## Webpage Backend:
+### Webpage Backend:
 1. Go to *webpage_backend/*
 2. Install dependencies: `yarn install`
 3. Start the api server: `node index.js`
 4. Check that the server is running on `localhost:5001`
 
-## Webpage
+### Webpage
 1. Go to *webpage/*
 2. Install dependencies: `yarn install`
 3. Run `yarn start` to start development server
 4. Check that the development server is running on `localhost:3000`
 
-## MongoDB
+### MongoDB
 * This project's database was built on a MongoDB Atlas service
 * Connection configuration can be found in *webpage_backend/api/db.js*
 * This database server will be shutdown soon
@@ -92,4 +99,4 @@ export DPT_SUDO=false
 		* `GET: /allFiles`, get metadata of all files
 		* `GET: /:id/:filename`, get single file
 
-See implementation details in *implementation_details*
+See implementation details in ([*implementation_details*](https://github.com/mvann/app-store/blob/master/implementation_details.md))
