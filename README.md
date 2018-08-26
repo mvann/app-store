@@ -48,3 +48,5 @@ export DPT_SUDO=false
 	* `/list` - list of available for installation packages
 	* `/update` - get updated list of available packages
 	* `/install/<pkg_name>` - install/update package
+
+See implementation details in *implementation_details*
