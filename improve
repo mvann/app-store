@@ -1,0 +1,2 @@
+1. signature for individual .deb / developer
+2. additional dev tool: strict package layout (developers may not modify system directories)

@@ -2,6 +2,7 @@ import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import deb_pkg_tools.repo
+from deb_pkg_tools.gpg import GPGKey
 
 UPLOAD_FOLDER = '/repo'
 ALLOWED_EXTENSIONS = set(['deb'])
@@ -12,6 +13,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def remove_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -29,7 +35,15 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            # update packages list, ket pair of keys, update repository
+            remove_file(UPLOAD_FOLDER + '/Packages')
+            remove_file(UPLOAD_FOLDER + '/Packages.gz')
+            remove_file(UPLOAD_FOLDER + '/Release')
+            remove_file(UPLOAD_FOLDER + '/Release.gpg')
             deb_pkg_tools.repo.scan_packages(UPLOAD_FOLDER, packages_file=(UPLOAD_FOLDER + '/Packages'), cache=None)
+            key = deb_pkg_tools.gpg.GPGKey(secret_key_file='/secret/secring.gpg', public_key_file='/secret/pubring.gpg', key_id=None)
+            deb_pkg_tools.repo.update_repository(UPLOAD_FOLDER, gpg_key=key)
             return redirect(url_for('upload_file', filename=filename))
     if request.method == 'GET':
         print('get method')

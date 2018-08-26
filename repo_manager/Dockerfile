@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y python3 python3-pip locales
+RUN apt-get update && apt-get install -y python3 python3-pip locales apt-utils
 RUN pip3 install Flask deb-pkg-tools
 
 RUN mkdir repo
@@ -17,6 +17,7 @@ COPY publisher.py /app
 COPY start_services.sh /app
 
 VOLUME /repo
+VOLUME /secret
 
 EXPOSE 5000
 EXPOSE 8000

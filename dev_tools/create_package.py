@@ -4,39 +4,42 @@ import tarfile
 import deb_pkg_tools.package
 import deb_pkg_tools.control
 from shutil import copyfile, copytree
+import tempfile
+import base64
 
 # export DPT_ALLOW_FAKEROOT_OR_SUDO=false
 # export DPT_CHOWN_FILES=false
 # export DPT_RESET_SETGID=false
 # export DPT_SUDO=false
 
-def make_tarfile(output_filename, source_dir):
-    with tarfile.open(output_filename, "w:gz") as tar:
-        tar.add(source_dir, arcname=os.path.basename(source_dir))
-
-if len(sys.argv) < 2:
-	print("enter the path to src")
+if len(sys.argv) < 4:
+	print("usage: python create_package.py <path> <pkg_name> <version> [icon_path]")
 	exit()
 else:
-	args = str(sys.argv[1]).strip('/').split('/')
-	src = args[len(args) - 1]
-	#src_tar = src + ".tar.gz"
+	src = sys.argv[1]
+	pkg_name = sys.argv[2]
+	version = sys.argv[3]
 
-print("src: %s" % src)
-path = "debian/"
-os.system("mkdir -p " + path)
-#make_tarfile(path + src_tar, src)
+encoded_icon = ''
+if len(sys.argv) > 3:
+	icon_path = sys.argv[4]
+	with open(icon_path, "rb") as image_file:
+		encoded_icon = base64.b64encode(image_file.read())
 
-control_file_name = path + "DEBIAN/control"
+temp_path = tempfile.mkdtemp()
+print(temp_path)
+
+control_file_name = temp_path + "/DEBIAN/control"
 default_control_fields = {'Architecture': 'all',\
-	'Description': 'hello',\
+	'Description': pkg_name,\
 	'Maintainer': 'iprokofy-mvann',\
-	'Package': 'hello-sh',\
-	'Version': '1.1'}
+	'Package': pkg_name,\
+	'Version': version,
+	'Icon': encoded_icon.decode("utf-8")}
 deb_pkg_tools.control.create_control_file(control_file_name, default_control_fields)
 
-os.system("cp -r " + src + "/* " + path + '.')
-package_name = deb_pkg_tools.package.determine_package_archive('debian')
-deb_path = deb_pkg_tools.package.build_package(path, repository=None, check_package=False, copy_files=True)
+os.system("cp -r " + src + "/* " + temp_path)
+package_name = deb_pkg_tools.package.determine_package_archive(temp_path)
+deb_path = deb_pkg_tools.package.build_package(temp_path, repository=None, check_package=False, copy_files=True)
 copyfile(deb_path, package_name)
 # os.system("rm -rf " + path)
