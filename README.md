@@ -83,7 +83,7 @@ export DPT_SUDO=false
 
 ### The webpage api
 1. The api is found at *localhost:5001/*
-2. */api*
+2. `/api*`
 	* `/users` - parent to user routes
 		* `GET: /` - get all users
 		* `POST: /` - create user

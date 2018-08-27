@@ -29,3 +29,15 @@
 	* List of .deb packages ready to be picked up by apt-get for installation
 	* **Packages** file: contains meta information about all packages currently stored in repo
 	* **Release** file: stores current state of the repository (size and hash sums of current content)
+
+## Webpage
+* The webpage is built using react
+* It uses the template created by create-react-app
+
+## Webpage Backend and API
+* The webpage backend is written using express and node
+
+## MongoDB
+* The database is a MongoDB Atlas instance
+* It is controlled through node with mongoose
+* The program uses MongoDB's GridFS to store and retrieve files
