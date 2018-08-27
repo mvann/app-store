@@ -1,6 +1,6 @@
 const db = require('./api/db').connect;
 const mongoose = require('mongoose');
-require('./package/packageModel');
+require('./api/package/packageModel');
 const Package = mongoose.model('Packages');
 
 db.once('open', function(){
