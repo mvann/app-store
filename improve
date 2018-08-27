@@ -1,2 +1,60 @@
 1. signature for individual .deb / developer
 2. additional dev tool: strict package layout (developers may not modify system directories)
+
+
+TODO BEFORE:
+1. switch to python3 in one terminal and set up env variables
+2. yarn install in backend
+3. in backend run: node deletePackages.js
+3. yarn install in webpage
+4. build ford:repo container
+5. build ford:car
+
+Presentation demo:
+1. build repo container
+2. create empty repo folder
+3. run repo manager
+4. go to localhost:8000 and show that it's empty
+
+5. got to dev_tools
+6. create new version oh hello-sh
+7. run python create_package.py hello-sh 1.0 sunny_icon.png (using example application)
+8. go to backend
+9. run: node index.js
+10. go to webpage folder
+11. yarn start
+
+12. got to localhost:3000/dev
+13. upload hello_1.0 from example pkgs
+14. go to localhost:3000/admin
+
+8. go to upload .deb to database 
+9. show that we can download it, then approve and show it on repo
+9. upload another version 1.1 of application, DO NOT approve it
+10. upload another version 1.2 of application and approve this one
+11. show that only approved apps in repo
+
+12. go to car_client
+13. run ./run_flask.sh
+14. go to localhost:3001/list
+15. show that there are applications ready to install
+
+16. install with localhost:3001/install/hello-sh
+17. check that in /list the app is in installed section
+TODO: add ability to run application in terminal
+
+18. upload newer version and show that it is in upgradable
+19. remove the source from repo
+20. upload another app
+21. check that the previous one is not trusted anymore
+
+
+
+
+
+
+1. create empty repository
+2. load packages to db
+3. approve packages
+4. check approved packages 
+

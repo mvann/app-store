@@ -22,5 +22,4 @@ VOLUME /secret
 EXPOSE 5000
 EXPOSE 8000
 
-#CMD ls -l /app
 CMD /app/start_services.sh
